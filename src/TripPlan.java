@@ -4,6 +4,7 @@ public class TripPlan {
     {
         Intro();
         Destination();
+        Time();
 
 
     }
