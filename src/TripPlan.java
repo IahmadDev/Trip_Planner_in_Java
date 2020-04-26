@@ -4,6 +4,7 @@ public class TripPlan {
     {
         Intro();
         Destination();
+        Time();
 
 
     }
@@ -71,7 +72,20 @@ public class TripPlan {
 
     public static void Time()
     {
+        int TimeDiff;
         Scanner Input = new Scanner(System.in);
+        System.out.println("");
+        System.out.println("What is time difference between your home and destination(-ve if behind): ");
+        TimeDiff = Input.nextInt();
+        /*Time Difference Calculations*/
+        int TimeHome = 24;
+        int TimeDestinationMidnight = (24 + (TimeDiff)) % 24;
+        int TimeDestinationNoon = (12 + (TimeDiff)) % 24;
+
+        System.out.println("It means that if its midnight at home there will be "+TimeDestinationMidnight+":00 at destination.");
+        System.out.println(" and if its noon at home there will be "+TimeDestinationNoon+":00 at destination.");
+
+
 
     }
 
