@@ -60,8 +60,9 @@ public class TripPlan {
         int Hours = Days * 24;
         int Minutes = Hours * 60;
         double ConvertedCurrency = USD * Conversion;
-        double USDPerDay = USD / Days;
-        double ConvCurrencyPerDay = ConvertedCurrency / Days ;
+        double USDPerDay = Math.floor((USD/(double)Days)*100)/100;
+        double ConvCurrencyPerDay = Math.floor((ConvertedCurrency/(double)Days)*100)/100;
+
 
 
         System.out.println("Your trip will be as long as "+ Days + " or "+ Hours + " hours or "+ Minutes + " Minutes.");
@@ -101,7 +102,7 @@ public class TripPlan {
         System.out.println("Tell me the area of destination in kilometerSquares: ");
         KilometerSq = Input.nextDouble();
         /*Calculations*/
-        double MilesSq  = KilometerSq * 1.76;
+        double MilesSq  = Math.floor((KilometerSq * 1.76)*100)/100;
 
         System.out.println("In miles^2 that will be: "+ MilesSq + ".");
 
