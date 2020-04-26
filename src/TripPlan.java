@@ -5,6 +5,8 @@ public class TripPlan {
         Intro();
         Destination();
         Time();
+        Area();
+        AskAgain();
 
 
     }
@@ -78,12 +80,14 @@ public class TripPlan {
         System.out.println("What is time difference between your home and destination(-ve if behind): ");
         TimeDiff = Input.nextInt();
         /*Time Difference Calculations*/
+
         int TimeHome = 24;
         int TimeDestinationMidnight = (24 + (TimeDiff)) % 24;
         int TimeDestinationNoon = (12 + (TimeDiff)) % 24;
 
         System.out.println("It means that if its midnight at home there will be "+TimeDestinationMidnight+":00 at destination.");
         System.out.println(" and if its noon at home there will be "+TimeDestinationNoon+":00 at destination.");
+        System.out.println("************************************************************************************");
 
 
 
@@ -91,7 +95,39 @@ public class TripPlan {
 
     public static void Area()
     {
+        double KilometerSq;
         Scanner Input = new Scanner(System.in);
+        System.out.println("Let me tell you few countries use imperial system so get you started I need to know few more things.");
+        System.out.println("Tell me the area of destination in kilometerSquares: ");
+        KilometerSq = Input.nextDouble();
+        /*Calculations*/
+        double MilesSq  = KilometerSq * 1.76;
 
+        System.out.println("In miles^2 that will be: "+ MilesSq + ".");
+
+    }
+    public static void AskAgain()
+    {
+        int Answer;
+        Scanner Input = new Scanner(System.in);
+        System.out.println("Would you like to plan another trip (1 for YES and 2 for NO): ");
+        Answer = Input.nextInt();
+        if(Answer == 1){
+            Intro();
+            Destination();
+            Time();
+            Area();
+
+        }else if(Answer == 2){
+            System.out.println("****************************************************************************************");
+            System.out.println("                               Thanks for visiting, See you again.                      ");
+            System.out.println("****************************************************************************************");
+            System.exit(0);
+
+        }else{
+            System.out.println("Enter your Answer again, correctly this time!!!");
+            AskAgain();
+
+    }
     }
 }
