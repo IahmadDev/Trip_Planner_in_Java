@@ -1,12 +1,21 @@
+import javax.crypto.spec.PSource;
 import java.util.Scanner;
+import java.lang.Math;
+
 public class TripPlan {
+    public static final double E = 2.71;
+    public static final double PI = 3.14;
+    public static final double EARTHRAD = 6372.8;// in KM
+
     public static void main(String[] args)
     {
         Intro();
         Destination();
         Time();
         Area();
+        AskValues();
         AskAgain();
+
 
 
     }
@@ -117,6 +126,7 @@ public class TripPlan {
             Destination();
             Time();
             Area();
+            AskValues();
 
         }else if(Answer == 2){
             System.out.println("****************************************************************************************");
@@ -126,8 +136,41 @@ public class TripPlan {
 
         }else{
             System.out.println("Enter your Answer again, correctly this time!!!");
+            System.out.println("****************************************************************************************");
             AskAgain();
 
     }
     }
+
+    public static double HaversineFormula(double lat1, double lon1, double lat2, double lon2)
+    {
+     double dlat = Math.toRadians(lat2-lat1);
+     double dlon = Math.toRadians(lon2-lon1);
+
+     lat1 = Math.toRadians(lat1);
+     lat2 = Math.toRadians(lat2);
+
+     double a = Math.pow(Math.sin(dlat/2),2) + Math.pow(Math.sin(dlon/2),2)*Math.cos(lat1) * Math.cos(lat2);
+     double c = 2 * Math.asin(Math.sqrt(a));
+
+     return Math.floor((EARTHRAD*c)*100)/100;
+    }
+
+    public static void AskValues()
+    {
+        Scanner Input = new Scanner(System.in);
+        System.out.println("Enter Latitude of home : ");
+        double lat1 = Input.nextDouble();
+        System.out.println("Enter Latitude of destination : ");
+        double lat2 = Input.nextDouble();
+        System.out.println("Enter longitude of home : ");
+        double lon1 = Input.nextDouble();
+        System.out.println("Enter longitude of destination : ");
+        double lon2 = Input.nextDouble();
+        System.out.println(HaversineFormula(lat1,lon1,lat2,lon2));
+        System.out.println("****************************************************************************************");
+
+
+    }
 }
+
