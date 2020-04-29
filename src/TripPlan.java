@@ -1,12 +1,20 @@
+import javax.crypto.spec.PSource;
 import java.util.Scanner;
+import java.lang.Math;
+
 public class TripPlan {
+    
+	public static final double EARTHRAD = 6372.8;// in KM
+
     public static void main(String[] args)
     {
         Intro();
         Destination();
         Time();
         Area();
+        AskValues();
         AskAgain();
+
 
 
     }
@@ -19,19 +27,17 @@ public class TripPlan {
         System.out.println("****************************************************************************************");
         System.out.println("                               Welcome to Trip Planner                                  ");
         System.out.println("****************************************************************************************");
-        System.out.println("May I know your name?");
+        System.out.print("May I know your name?");
 
         Name = Input.nextLine();//Input name
 
-        System.out.println("Nice to meet you "+ Name + "\nNow tell me where are you traveling?");
+        System.out.println("Nice to meet you "+ Name );
 
+	System.out.print("Now tell me where are you traveling?"
         Destination = Input.nextLine();
 
         System.out.println("What a great place to visit "+ Destination + " is!!!");
-        System.out.println("");
         System.out.println("*************************************************************************************");
-
-
 
     }
 
@@ -43,17 +49,15 @@ public class TripPlan {
 
         Scanner Input = new Scanner(System.in);
 
-        System.out.println("");
-        System.out.println("How many days you will be travelling? ");
+        System.out.print("How many days you will be travelling? ");
         Days = Input.nextInt();
-        System.out.println("What is your budget for this trip in USD: $");
+        System.out.print("What is your budget for this trip in USD: $");
         USD = Input.nextDouble();
-        System.out.println("To convert your currency write the first three letters of destination currency: ");
+        System.out.print("To convert your currency write the first three letters of destination currency: ");
         Currency = Input.next();
-        System.out.println("What is conversion rate W.R.T 1 USD: ");
+        System.out.print("What is conversion rate W.R.T 1 USD: ");
         Conversion = Input.nextDouble();
 
-        System.out.println("");
         System.out.println("************************************************************************************");
 
         /*Calculations*/
@@ -77,8 +81,7 @@ public class TripPlan {
     {
         int TimeDiff;
         Scanner Input = new Scanner(System.in);
-        System.out.println("");
-        System.out.println("What is time difference between your home and destination(-ve if behind): ");
+        System.out.print("What is time difference between your home and destination(-ve if behind): ");
         TimeDiff = Input.nextInt();
         /*Time Difference Calculations*/
 
@@ -99,10 +102,10 @@ public class TripPlan {
         double KilometerSq;
         Scanner Input = new Scanner(System.in);
         System.out.println("Let me tell you few countries use imperial system so get you started I need to know few more things.");
-        System.out.println("Tell me the area of destination in kilometerSquares: ");
+        System.out.print("Tell me the area of destination in kilometerSquares: ");
         KilometerSq = Input.nextDouble();
         /*Calculations*/
-        double MilesSq  = Math.floor((KilometerSq * 1.76)*100)/100;
+        double MilesSq  = Math.floor((KilometerSq * 0.3861021586)*100)/100;
 
         System.out.println("In miles^2 that will be: "+ MilesSq + ".");
 
@@ -111,13 +114,14 @@ public class TripPlan {
     {
         int Answer;
         Scanner Input = new Scanner(System.in);
-        System.out.println("Would you like to plan another trip (1 for YES and 2 for NO): ");
+        System.out.print("Would you like to plan another trip (1 for YES and 2 for NO): ");
         Answer = Input.nextInt();
         if(Answer == 1){
             Intro();
             Destination();
             Time();
             Area();
+            AskValues();
 
         }else if(Answer == 2){
             System.out.println("****************************************************************************************");
@@ -127,8 +131,40 @@ public class TripPlan {
 
         }else{
             System.out.println("Enter your Answer again, correctly this time!!!");
+            System.out.println("****************************************************************************************");
             AskAgain();
 
     }
     }
+
+    public static double HaversineFormula(double lat1, double lon1, double lat2, double lon2)
+    {
+     double dlat = Math.toRadians(lat2-lat1);
+     double dlon = Math.toRadians(lon2-lon1);
+
+     lat1 = Math.toRadians(lat1);
+     lat2 = Math.toRadians(lat2);
+
+     double a = Math.pow(Math.sin(dlat/2),2) + Math.pow(Math.sin(dlon/2),2)*Math.cos(lat1) * Math.cos(lat2);
+     double c = 2 * Math.asin(Math.sqrt(a));
+
+     return Math.floor((EARTHRAD*c)*100)/100;
+    }
+
+    public static void AskValues()
+    {
+        Scanner Input = new Scanner(System.in);
+        System.out.print("Enter Latitude of home : ");
+        double lat1 = Input.nextDouble();
+        System.out.print("Enter Latitude of destination : ");
+        double lat2 = Input.nextDouble();
+        System.out.print("Enter longitude of home : ");
+        double lon1 = Input.nextDouble();
+        System.out.print("Enter longitude of destination : ");
+        double lon2 = Input.nextDouble();
+        System.out.println(HaversineFormula(lat1,lon1,lat2,lon2));
+        System.out.println("****************************************************************************************");
+
+    }
 }
+
