@@ -3,8 +3,8 @@ import java.util.Scanner;
 import java.lang.Math;
 
 public class TripPlan {
-    
-	public static final double EARTHRAD = 6372.8;// in KM
+
+    public static final double EARTHRAD = 6372.8;// in KM
 
     public static void main(String[] args)
     {
@@ -154,6 +154,7 @@ public class TripPlan {
     public static void AskValues()
     {
         Scanner Input = new Scanner(System.in);
+      
         System.out.print("Enter Latitude of home : ");
         double lat1 = Input.nextDouble();
         System.out.print("Enter Latitude of destination : ");
